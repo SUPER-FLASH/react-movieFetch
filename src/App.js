@@ -1,39 +1,23 @@
 import React, { useState } from 'react';
-
+import { Routes, Route } from 'react-router-dom';
 import MoviesList from './components/MoviesList';
+import MovieHomePage from './components/MovieHomePage';
+import MovieMania from './components/MovieMania';
 import './App.css';
 
 function App() {
   const [movies, setMovies] = useState([]);
 
-  function fetchMoviesHandler() {
-    fetch('https://swapi.dev/api/films/')
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        console.log(data)
-        const transformedMovies = data.results.map((movieData) => {
-          return {
-            id: movieData.episode_id,
-            title: movieData.title,
-            openingText: movieData.opening_crawl,
-            releaseDate: movieData.release_date,
-          };
-        });
-        setMovies(transformedMovies);
-      });
-  }
 
   return (
-    <React.Fragment>
-      <section>
-        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
-      </section>
-      <section>
-        <MoviesList movies={movies} />
-      </section>
-    </React.Fragment>
+    <div>
+     <Routes>
+        <Route path='/' element={<MovieHomePage/>}/>
+        <Route path='/mania' element={<MovieMania/>}/>
+
+      
+     </Routes>
+    </div>
   );
 }
 
